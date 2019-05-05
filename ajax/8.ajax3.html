@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">获取数据</button>
+<pre id="store"></pre>
+<script src="../vendor/jquery-3.1.0.min.js"></script>
+<script>
+    var btn = $('#btn'),
+        store = $('#store');
+    console.warn(btn)
+    btn.on('click', ajax);
+
+    function ajax() {
+      /*  var jqXHR = $.ajax({
+            url: './data.php',
+            type: 'GET',
+            dataType: 'json', // 如果返回是jsonp 这里要写jsonp
+
+        })
+        jqXHR.then(function (data) { // 类似还有done fail always
+            console.log(data);
+        }, function () {
+            
+        });*/
+        // jqXHR.abort() 终止请求
+
+        $.get('./data.php', 'name=haha', function (data) {
+            store.html(JSON.stringify(data))
+        }, 'json');
+        $.post('./data.php', 'name=haha', function (data) {
+            store.html(JSON.stringify(data))
+        }, 'json');
+        // 和第二个类似 省略了数据类型
+        $.getJSON('./data.php', 'name=haha', function (data) {
+            store.html(JSON.stringify(data))
+        })
+    }
+</script>
+</body>
+</html>

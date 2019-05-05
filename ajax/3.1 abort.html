@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">获取数据</button>
+<pre id="store"></pre>
+<script>
+    var btn = document.getElementById('btn'),
+        store = document.getElementById('store');
+    // abort方法
+    // 终止一个ajax请求 会将readystate置0 但不会触发readystatechange事件
+    btn.addEventListener('click', ajax);
+
+    function ajax() {
+        var xhr = window.XMLHttpRequest ? (new XMLHttpRequest()) : (new ActiveXObject('Microsoft.XMLHTTP'));
+        var src = './postdata.php';
+        xhr.open('POST', src);
+        var formData = new FormData();
+        formData.append('name', '2233')
+        xhr.onreadystatechange = loadData;
+        // timeout 设置超时 写在open和send中间   php中设置sleep（3000）意味  3s后响应
+        /*xhr.ontimeout = function () {
+            console.warn('timeout')
+        }
+        xhr.timeout = 2000
+*/
+        // responsetype 可以改变response的值类型  response的值默认为字符串类型
+        xhr.responseType = 'json';
+        xhr.send(formData);
+      /*  console.warn(xhr.readyState); // 1
+        xhr.abort();
+        console.warn(xhr.readyState); // 0*/
+      
+
+        function loadData() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.warn(typeof xhr.response);
+                try {
+                    store.innerHTML = JSON.stringify(xhr.response, null, 2);
+                } catch (e){
+                    store.innerHTML = 'parse error'
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

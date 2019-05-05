@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">获取数据</button>
+<pre id="store"></pre>
+<script src="../vendor/jquery-3.1.0.min.js"></script>
+<script>
+    var btn = $('#btn'),
+        store = $('#store');
+    console.warn(btn)
+    btn.on('click', ajax);
+
+    $.ajaxSetup({
+        url: './data.json',
+        type: 'GET',
+        dataType: 'json',
+        context: store  // 成功回调后使用的上下文
+    });
+
+    // 全局回调 打印顺序为 start send  globaltest success  complete stop
+    var jDoc = $(document); // 重复执行$(document)
+    jDoc.ajaxComplete(function () {
+        console.log('complete');
+    });
+    jDoc.ajaxError(function () {
+        console.log('error');
+    });
+    jDoc.ajaxSend(function () {
+        console.log('send');
+    });
+    jDoc.ajaxStart(function () {
+        console.log('start');
+    });
+    jDoc.ajaxStop(function () {
+        console.log('stop');
+    });
+    jDoc.ajaxSuccess(function () {
+        console.log('success');
+    });
+
+
+
+    function ajax() {
+      /* $.ajax({
+           url: './data1.json',  // 可以覆盖之前的url
+           success: function (data) {
+               store.html(JSON.stringify(data, null, 2))  // 2是用来控制字符串里面的间距
+           }
+       })*/
+
+      // 衍生方法
+        $.get('./data.php', function (data) {
+            this.html(JSON.stringify(data, null, 2)); // 这里的this就是store了 设置了context的缘故
+        })
+    }
+</script>
+</body>
+</html>

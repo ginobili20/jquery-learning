@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>post</title>
+</head>
+<body>
+<button id="btn">获取数据</button>
+<pre id="store"></pre>
+
+<script src="../vendor/jquery-1.12.4.min.js"></script>
+<script>
+    var btn = document.getElementById('btn'),
+        store = document.getElementById('store');
+
+    btn.addEventListener('click', ajax);
+
+   /* function ajax() {
+        // 兼容ie
+        var src = './postdata.php'
+        var xhr = window.XMLHttpRequest ? (new XMLHttpRequest()) : (new ActiveXObject('Microsoft.XMLHTTP'));
+
+    xhr.open('POST', src);
+   /!*          xhr.onreadystatechange = loadData;
+        // post请求要添加
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send('name="abc"');*!/
+
+        // 可以发送复杂的
+        var formData = new FormData();
+        formData.append('name', '123');
+        xhr.onreadystatechange = loadData;
+        xhr.send(formData);
+
+        function loadData() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+
+                store.innerHTML = xhr.response
+            }
+        }
+    }*/
+    function ajax() {
+        var xhr = window.XMLHttpRequest ? (new XMLHttpRequest()) : (new ActiveXObject('Microsoft.XMLHTTP'));
+        var src = './postdata.php';
+        xhr.open('POST', src);
+        var formData = new FormData();
+        formData.append('name', '123');
+        xhr.onreadystatechange = loadData();
+        xhr.send(formData);
+
+        function loadData() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                store.innerHTML = xhr.response;
+            }
+        }
+    }
+</script>
+</body>
+</html>

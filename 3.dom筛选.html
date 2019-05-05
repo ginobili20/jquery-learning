@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box1">
+    <div id="box2">
+        <div id="box3">
+            <p id="info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, rem?</p>
+            <ul>
+                <li class="item1">item1</li>
+                <li class="item2">item2</li>
+                <li class="item3">item3</li>
+                <li class="item4">item4</li>
+                <li class="item5">item5</li>
+                <li class="item6">item6</li>
+                <li class="item7">item7</li>
+                <li class="item8">item8
+                    <ul></ul>
+                </li>
+                <li class="item9">item9</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="vendor/jquery-1.12.4.js"></script>
+<script>
+    // 增加
+    console.log($('.item1, .item3'));
+    console.log($('.item1').add('.item3'));
+
+
+    // 过滤
+    console.log($('li').not('.item2, .item3')); // 过滤掉
+    console.log($('li').filter('.item2, .item3')); //过滤出
+
+    // 可以接函数
+    console.log($('li').not(function () {
+        //  hasClass一次只能判断一个class
+        return $(this).hasClass('item4') ||  $(this).hasClass('item5');
+    }))
+
+    console.log($('li').filter(function (t) {
+        return $(this).hasClass('item5')
+    }));
+    // has 类似于has选择器
+    console.log($('li').has('ul')); // 返回的是包含ul的li
+
+    // slice
+    console.log($('li').slice(0));
+    console.log($('li').slice(3));
+    console.log($('li').slice(3,5)); // [3,5)
+
+    //遍历
+    console.log($('div').map(function (t) {
+        return this.id;//.id是js的属性 所以这里不是$(this)
+    }))
+
+    console.warn($('li').each(function () {
+        return this.title = this.innerHTML
+    }))
+    //each返回的是原来的数组，并不会新创建一个数组。而map方法会返回一个新的数组。
+
+    // 其他一些操作
+    console.log($('#box3').children().is('p')); // true
+    console.log($('#box3').children().end());
+    console.log(
+        $('.item3').nextUntil('.item6').addBack().css('color', 'red')//把item3也改回红色
+    );
+</script>
+</body>
+</html>

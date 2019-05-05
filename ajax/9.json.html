@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // parse方法不一定要接受json  将字符串转化为对象或值
+    var str = '{"data": 1}';
+    console.log(JSON.parse(str)) ; //{data: 1}]
+    var str2 = '[1,2,3, "dadad", [{"a": "xdf"}]]';
+    console.log(JSON.parse(str2));
+    // stringify方法将值或对象转化为json数据格式   第二个参数为替换函数 第三个参数为缩进
+    var obj = {"data": 1, "a": {"b": 5}};
+    console.log(JSON.stringify(obj, function (key, value) {
+        if (value === 5) {  // 替换了值为5的情况
+            value = 10;
+        }
+        return value
+    }))
+
+    // json数据本质上是一个字符串  可以用parse方法或者eval方法转化为对象  使用时注意添加try catch
+
+
+    //json有两种结构
+
+    // 一种为对象
+
+    var json1 = {
+      "name": "json1",
+      "age": "1"
+    };
+
+    // 另一种为数组
+    var json2 = [{"name": "json2", "age": "2"}, {"name": "json22", "sex": "female"}];
+
+ //数据传输过程中  JSON以字符串形势传递  而js操作的是JSON对象
+
+  //json字符串
+    var jsonstr = '{"name": "string", "age": "1"}';
+
+    // json对象
+    var jsonObj = {"name": "object", "age": "2"};
+</script>
+</body>
+</html>

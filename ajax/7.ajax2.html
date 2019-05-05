@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">获取数据</button>
+<pre id="store"></pre>
+<script src="../vendor/jquery-3.1.0.min.js"></script>
+<script>
+    var btn = $('#btn'),
+        store = $('#store');
+    console.warn(btn)
+    btn.on('click', ajax);
+    
+    function ajax() {
+        $.ajax({
+            url: './data.php',
+            type: 'GET',
+            data: {},  //post方法中传导数据使用
+            dataType: 'json', // 如果返回是jsonp 这里要写jsonp
+            jsonpCallback: 'callback', // 服务端相应传回是一个随机的名字 这个参数可以修改传回为callback名字
+            beforeSend: function () {
+
+            },
+            scriptCharset: 'utf-8',
+            success: function () {
+
+            },
+            error: function () {
+
+            },
+            complete: function () {
+
+            },
+            xhrFileds:{
+                withCredentials: true
+            },
+            timeout: 4000,  //超时
+            statusCode: {
+                304: function () {
+                    alert('cached')
+                },
+                503: function () {
+                    alert('server error')
+                }
+            },
+            headers: {
+                abc: 'xyz'
+            },
+            cache: false,  //需要缓存设置为false
+            async: false // false为同步请求 jsonp无法同步的
+        })
+    }
+</script>
+</body>
+</html>

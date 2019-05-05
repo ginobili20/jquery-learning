@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>XHR 对象</title>
+</head>
+<body>
+  <button id="btn">获取数据</button>
+  <pre id="store"></pre>
+  <script>
+  var btn = document.getElementById('btn'),
+  	store = document.getElementById('store')
+  btn.addEventListener('click', ajax);
+  document.cookie = 'name=client;'
+  // cors中的简单请求与复杂请求
+  // 1. 复杂请求会先发送一次OPTIONS 方法的预检请求
+  //2.简单请求需要同时满足条件 ： ①请求method必须为HEAD GET POST中的一种
+  // ②请求头中的字段为accept content-type等五个字段中
+  // ③  content-type值有限制 application等等
+
+  //  响应头字段的设置 Access-Control-Allow-Origin  表示允许访问的域名  *表示任意域名
+  // Access-Control-Allow-Credential 值设置为true 只能为true 表示允许向服务器发送cookie
+  // 客户端需要设置xhr 的withCredentials为true  Access-Control-Allow-Origin 必须为指定域名
+
+
+  // Access-Control-Allow-Header 表示服务器接受的跨域请求字段 多个字段逗号分隔 请求头含Access-Control-Request-Header（预检请求时会有）时必须设置allow-header
+  // Access-Control-Max-Age 表示缓存预检结果 秒为单位 在此期间不再发送预检请求
+  function ajax () {
+      var src = 'http://sub.local.com/cors-data-with-cookie.php';
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', src);
+      xhr.onreadystatechange = loadData;
+      xhr.responseType = 'json';
+
+      // 演示跨域下发送cookie
+      xhr.withCredentials = true;
+      xhr.send();
+
+
+      function loadData() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              store.innerHTML
+                  = JSON.stringify(xhr.response, null, 2);
+              // 数据获取成功后调用 获取响应头的方法 getResponseHeader
+              console.warn(xhr.getResponseHeader('Date'))
+          }
+      }
+  }
+  </script>
+</body>
+</html>
+  

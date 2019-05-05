@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>title</h2>
+<ul style="border: 1px solid  red">
+    <li class="item1">新闻标题-1</li>
+    <li class="item2">新闻标题-2</li>
+    <li class="item3">新闻标题-3</li>
+    <li class="item4">新闻标题-4</li>
+    <li class="item5">新闻标题-5</li>
+    <li class="item6">新闻标题-6</li>
+    <li class="item7">新闻标题-7</li>
+    <li class="item8">新闻标题-8</li>
+    <li class="item9">新闻标题-9</li>
+</ul>
+
+<script src="vendor/jquery-1.12.4.js"></script>
+<script>
+    var li = $('li');
+    var ul = $('ul');
+    //被插入
+//    ul.append('<p>末尾被插入的内容</p>')
+//    ul.prepend('<p>头部被插入</p>')
+//    ul.before('<p>在外部的头部插入</p>')
+//    ul.after('<p>在外部的尾部插入</p>')
+
+    //插入 等同于上述方法
+    $('<p>末尾被插入的内容</p>').appendTo(ul)
+    $('<p>头部被插入</p>').prependTo(ul);
+    $('<p>在外部的头部插入</p>').insertBefore(ul);
+    $('<p>在外部的尾部插入</p>').insertAfter(ul);
+
+
+</script>
+</body>
+</html>

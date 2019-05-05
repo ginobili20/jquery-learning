@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <label><input type="radio"  name="test" value="james">詹姆斯</label>
+    <label><input type="radio"  name="test" value="durant" checked>杜兰特</label>
+    <label><input type="radio"  name="test" value="harden">哈登</label>
+</form>
+
+<div id="box1" class="box" style="width: 120px; height: 120px;background-color: red">点我</div>
+<div id="box2" class="box" style="width: 100px; height: 150px;background-color: blue"></div>
+
+
+<h1>h1. 标题</h1>
+<h2>h2. 标题</h2>
+
+<p id="p1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, quae?</p>
+
+<ul class="list">
+    <li>list1</li>
+    <li>list2</li>
+    <ul>
+        <li>list2-1</li>
+        <li>list2-2</li>
+        <li>list2-3</li>
+    </ul>
+    <li>list3</li>
+</ul>
+
+<a href="http://www.baidu.com" target="_blank">百度</a>
+<a href="http://www.163.com">网易</a>
+<a href="#">本地</a>
+
+<p data-id="1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet fugit illum libero, minus odio quas
+    repellat
+    repellendus similique unde voluptatem.</p>
+
+<p data-id="2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet fugit illum libero, minus odio quas
+    repellat
+    repellendus similique unde voluptatem.</p>
+
+
+
+<ul class="lis">
+    <li>list-01</li>
+    <li>list-02</li>
+    <li>list-03</li>
+    <li>list-04</li>
+    <li>list-05</li>
+    <li>list-06</li>
+    <li>list-07</li>
+    <li>list-08</li>
+    <li>list-09</li>
+    <li>list-10</li>
+</ul>
+
+
+<ul class="lis2">
+    <li>list-01</li>
+    <li>list-02</li>
+    <li>list-03</li>
+    <li>list-04</li>
+    <li>list-05</li>
+    <li>list-06</li>
+    <li>list-07</li>
+    <li>list-08</li>
+    <li>list-09</li>
+    <li>list-10</li>
+</ul>
+
+
+<p style="width: 100px;height: 100px;border: 1px solid red"></p>
+<p></p>
+<p>span</p>
+<p>123 <span>456</span></p>
+
+
+<p style="display: none">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, excepturi molestiae odio officiis optio praesentium recusandae similique soluta vel velit? Enim et iste neque quaerat quis quisquam quo rem vel.
+</p>
+<p style="visibility: hidden">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, excepturi molestiae odio officiis optio praesentium recusandae similique soluta vel velit? Enim et iste neque quaerat quis quisquam quo rem vel.
+</p>
+<p style="opacity: 0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque, excepturi molestiae odio officiis optio praesentium recusandae similique soluta vel velit? Enim et iste neque quaerat quis quisquam quo rem vel.
+</p>
+
+<script src="vendor/jquery-3.1.0.min.js"></script>
+<script>
+$(function () {
+    // 多种选择器混合使用
+    $('form').on('click', function (e) {
+     console.log($('input:radio[name="test"]:checked').val())
+    })
+
+    // id 选择器
+    $('#box1').click(function () {
+        var box2 = $('#box2')
+        box2.width(box2.width() + 10).height(box2.height() + 10)
+    })
+
+    // js的原生选择器
+    console.log(document.querySelector('.box'));
+    console.log(document.querySelectorAll('.box'));
+
+
+    // 子代选择器
+    $('.list > li').addClass('highlight')
+    // 后代选择器
+    $('.list li').css('color', 'red')
+
+    // 属性选择器
+    //$('a[href="http://www.baidu.com"]').addClass('highlight')
+    // $('a[href*="www"]').addClass('highlight')
+       // $('a[href^="http"]').addClass('highlight')
+    //$('a[href$="com"]').addClass('highlight')
+    $('a[href!="http://www.baidu.com"]').addClass('highlight') //jquery独有
+
+
+    //位置选择器
+    //$('.lis li:first').addClass('highlight');
+//    $('.lis li:last').addClass('highlight');
+ $('.lis li:even').addClass('highlight');
+//    $('.lis li:odd').addClass('highlight');
+//    $('.lis li:eq(0)').addClass('highlight');
+//    $('.lis li:lt(3)').addClass('highlight');   //  < 3
+    //$('.lis li:gt(3)').addClass('highlight');  //  > 3
+
+
+// 子代 选择器
+//    $('.lis2 li:first-child').addClass('highlight');
+//    $('.lis2 li:last-child').addClass('highlight');
+    $('.lis2 li:nth-child(1)').addClass('highlight');
+})
+
+    // 内容选择器
+    $('p:empty').addClass('highlight')
+    $('p:has(span)').css('background-color', 'red')
+    $('p:contains(span)').css('background-color', 'blue')
+
+    //表单选择器略过
+
+    //其他
+
+//                console.log($(' :hidden').addClass('highlight'))
+//                console.log($(' :visible').addClass('highlight'))
+</script>
+</body>
+</html>

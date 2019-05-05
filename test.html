@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding:0;
+        }
+        .wrap {
+            width: 400px;
+            height:400px;
+            margin: 100px 0 0 100px;
+            border: 10px solid red;
+            position: relative;
+        }
+
+        .son {
+            width: 100px;
+            height:100px;
+            border: 1px solid green;
+            position: absolute;
+            margin: 5px 0 0 5px;
+            padding: 10px;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="color">欧拉欧拉欧拉欧拉 木大木大木大木大</div>
+<script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+    var str = '   |d d d|    '
+    console.log(str)
+    console.log($.trim(str))
+
+    var arr = [3, 5 , 8, 44, 2 , 1]
+
+    $.each(arr, function (index, item) {
+        console.log(index, item)
+    })
+
+
+    var obj = {
+        a: 1,
+        b: 2,
+        c: 3
+    }
+
+
+    $.each(obj, function (key, value) {
+        console.log(key, value)
+    })
+
+    var arr2 = ['yi']
+    console.log($.merge(arr, arr2))
+
+
+</script>
+</body>
+</html>

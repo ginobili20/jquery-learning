@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img id="logo" src="" alt="jQuery logo" class="img-jquery" title="jQuery logo" data-id="1" data-data1="html data1" />
+<input  class="checkbox" type="checkbox" id="check" tabIndex="1" style="width:50px; height: 50px;" title="Check this!" description="just a checkbox" disabled />
+
+
+<div data-ha="ha" data-he="he" id="p"></div>
+
+<script src="vendor/jquery-1.12.4.js"></script>
+<script>
+    var img = $('img'),
+        check = $('.checkbox');
+
+    img.data('description', 'hah');  // 不在标签中显示
+    console.log(img.data('description')) // 但是获取的到  'hah'
+     // 获取标签里的data-xxx属性
+    console.log(img.data('id')); //1
+    console.log(img.data('data1')); // html data1
+
+    // 同样支持设置对象和数组布尔值
+    img.data('object', {
+        a: 'b'
+    });
+    console.log(img.data('object'))
+
+    // 显示img所有的data数据
+    console.log(img.data())
+
+    img.attr('data-data1', 'attr'); //  attr的方式可以修改标签里的data-data1
+    console.log(img.data('data1')) // 但是获取到的还是之前的data值 html data1
+
+    img.data('test', 'test');
+    img.removeData(['test']);   // 删除某项数据 当然如果不加任何名字的话 全部删除  删除不了标签里的属性 但是data数组里确实没有了
+    console.log(img.data('test'))
+
+
+    // console.log(img.hasData('object')) // xx 错误写法
+    console.log($.hasData($('#logo'))) // false  迷之不行  事实上是存在数据的    错误写法
+    console.log($.hasData(document.getElementById('logo'))) // true
+
+
+    // 原生js通过setAttribute或者.dataset.xx 的方式修改data相关属性是同步的
+    // jquery 通过attr或者data设置的不同步！！！！
+
+</script>
+</body>
+</html>

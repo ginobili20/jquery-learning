@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrapper {
+            width: 9999px;
+            position: relative;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+<div class="box" id="demo">div</div>
+</div>
+
+
+
+<div class="html">
+    <p>wwww</p>
+</div>
+<div class="text">
+    <a>wwww</a>
+</div>
+<script src="vendor/jquery-1.12.4.js"></script>
+<script>
+    var demo = $('#demo');
+
+    // 获取元素的宽高
+    console.log(demo.width()); // 100
+    console.log(demo.height());// 100
+    console.log(demo.css('width')); // 100px  对比上面两个简单的方法 这个返回值会加上px
+    // 设置
+    demo.css('width', 200)
+
+    // 支持同时设置多个
+    demo.css({
+        backgroundColor: 'blue',
+        'font-weight': 'bold', // 可以使用驼峰可以使用-  使用- 必须加引号
+        width : '300em', //默认px  如果要别的单位就加变成字符串类型的值
+        height: 200
+    });
+
+    // 可以传函数
+    demo.css('height', function (index, value) {
+        console.log(value);// 200px
+        return parseInt(value, 10) + 50
+    })
+
+
+    // width  innerWidth  outerWidth
+    demo.css({
+        width: 100,
+        height: 100,
+        border: '1px solid #000',
+        margin: 20,
+        marginLeft: 2050,
+        padding: 30
+    });
+
+    console.log(demo.width()); // 100  content的宽
+    console.log(demo.innerWidth()); // 160  加了内边距
+    console.log(demo.outerWidth()) // 162  还要加边框
+
+    console.log(demo.offset())  // 相对于当前文档 返回{top：20， left： 2050}  margin + top/left
+    console.log(demo.position()) //Object { top: 10, left: 10 }  相当于是父元素偏移的top left值
+
+
+
+    // html(）
+    console.log($('.html').html()); // <p>wwww</p>
+    $('.html').html('<input type="text" placeholder="haha">')
+
+
+    // text()
+    console.log($('.text').text()); //wwww
+    $('.text').text('ha')
+
+
+</script>
+</body>
+</html>

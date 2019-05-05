@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>title</h2>
+<div class="item">
+    <p>Lorem ipsum dolor sit amet.</p>
+</div>
+<ul>
+    <li class="item1">新闻标题-1</li>
+    <li class="item2">新闻标题-2</li>
+    <li class="item3">新闻标题-3</li>
+    <li class="item4">新闻标题-4</li>
+    <li class="item5">新闻标题-5</li>
+    <li class="item6">新闻标题-6</li>
+    <li class="item7">新闻标题-7</li>
+    <li class="item8">新闻标题-8</li>
+    <li class="item9">新闻标题-9</li>
+</ul>
+
+<script src="vendor/jquery-1.12.4.js"></script>
+
+<script>
+var ul = $('ul');
+//clone两个参数  第一个是自己本身的事件和数据是否复制 第二个是子元素的事件和数据
+    $('h2').clone().appendTo(ul)
+//替换 后者替换前者
+$('h2').replaceWith('<p>hello</p>');
+    // 替换所有匹配项  前者替换后者
+    $('<p>hello</p>').replaceAll($('li'))
+
+</script>
+</body>
+</html>

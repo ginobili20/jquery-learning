@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, veritatis.</p>
+<div class="item"></div>
+<a href="#">link1</a>
+<a href="#">link2</a>
+<a href="#">link3</a>
+<a href="#">link4</a>
+<a href="#">link5</a>
+<a href="#">link6</a>
+<a href="#">link7</a>
+
+
+
+<div class="sc" style="font-size: 12px;">删除我呀</div>
+
+<script src="vendor/jquery-1.12.4.js"></script>
+<script>
+// 包裹
+    var p = $('p');
+    //p.wrap('<div class="wrapper"></div>')  // <div class="wrapper"><p>Lorem ipsum dolor sit...</p></div>
+
+    // wrapInner只包裹选中标签的内容
+    p.wrapInner('<div class="wrapper"></div>'); // <p><div class="wrapper">Lorem ipsum dolor sit amet</div></p>
+
+    // 删除
+    var sc = $('.sc')
+    sc.click(function () {
+        $(this).css({
+            fontSize: '+=2'
+        })
+    }).data('test', 'haha');
+
+
+    sc.detach(); // 删除节点 但是保留数据和事件
+   // sc.remove(); // 删除节点 事件和数据也没有了
+    console.log(sc.data());
+//  被detach和remove删除的节点可以复用
+    sc.appendTo($('.item'))
+
+    //只清空选择器的内容并不是连选择器一起删除
+    sc.empty()
+
+
+</script>
+</body>
+</html>

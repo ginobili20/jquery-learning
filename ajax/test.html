@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body>
+<button id="btn">获取数据</button>
+<pre id="store"></pre>
+<script src="../vendor/jquery-3.1.0.min.js"></script>
+<script>
+    var btn = document.getElementById('btn'),
+        store = document.getElementById('store'),
+        tempDom = null;
+    btn.addEventListener('click', ajax);
+   document.cookie = 'name=client'
+    function ajax() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', src);
+        xhr.responseType =  'json';
+        xhr.withCredentials = true;
+        xhr.send()
+    }
+        function loadData() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(typeof xhr.response);
+                try {
+                    store.innerHTML = JSON.stringify(xhr.response, null, 2);
+                } catch (e) {
+                    store.innerHTML = 'error parse!';
+                }
+            }
+        }
+    }
+
+</script>
+
+</body>
+
+</html>

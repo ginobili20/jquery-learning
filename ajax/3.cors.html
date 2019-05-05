@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>XHR 对象</title>
+</head>
+<body>
+<button id="btn">获取数据</button>
+<pre id="store"></pre>
+<script>
+    var btn = document.getElementById('btn'),
+        store = document.getElementById('store')
+
+    btn.addEventListener('click', ajax)
+    // cors方法 是在服务器php文件里添加     header('Access-Control-Allow-Origin: *')
+    function ajax () {
+        //  我们本地的网址是dev.loacl.com
+        var src = 'http://sub.local.com/cors-data.php'
+
+        var xhr = new XMLHttpRequest()
+
+        xhr.open('GET', src)
+        // 自定义请求头
+        xhr.setRequestHeader('abc', '123')
+        xhr.onreadystatechange = loadData
+        xhr.responseType = 'json'
+        xhr.send()
+
+        function loadData () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                store.innerHTML = JSON.stringify(xhr.response, null, 2)
+            }
+            if (xhr.readyState === 4){
+                console.log(xhr.status)
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="dom">dom</div>
+
+<ul class="li1">
+    <li>item-1</li>
+    <li>item-2</li>
+    <li>item-3</li>
+    <li>item-4</li>
+    <li>item-5</li>
+    <li id="item6">item-6</li>
+    <li>item-7</li>
+    <li>item-8</li>
+    <li>item-9</li>
+</ul>
+
+
+<div class="chu">初代
+    <div>二代
+        <div>三代
+            <div>四代<a class="dai" href="">五代</a></div>
+        </div>
+    </div>
+</div>
+
+<script src="vendor/jquery-1.12.4.js"></script>
+<script>
+    var domObj = document.getElementById('dom');
+    var jqueryObj = $('#dom');
+
+    console.log(domObj.nodeType);//1
+    console.log(domObj.jquery);
+    console.log(jqueryObj.nodeType);
+    console.log(jqueryObj.jquery);//返回jquery版本号
+
+    // dom 转jquery对象
+    var jqueryObj2 = $(domObj);
+    console.log(jqueryObj2.jquery);
+
+    // jquery转dom
+    var domObj2 = jqueryObj[0];
+    console.log(domObj2.nodeType);
+    var domObj3 = jqueryObj.get(0);
+    console.log(domObj3.nodeType);
+
+
+    //  创造dom
+    var createDom = $('<div>我是被jquery创造出来的</div>');
+    createDom.appendTo('body');
+
+    var createA = $('<a>创造的a</a>').attr({
+        class: 'hey',
+        href: 'http://www.baidu.com',
+        target: '_blank',
+        title: '百度',
+        id: 'hha'  // 设置id是生效的！！！！
+    });
+    createA.appendTo('body')
+
+// 获取
+    var li1 = $('.li1 li');
+    li1.eq(3).css('color', 'red');
+    li1.first().css('background-color', 'green');
+    li1.last().css('font-weight', '800')
+    console.log('li', li1.index($('#item6'))) // 5
+
+    // 通过关系查找
+    // 返回所有父元素
+    console.log($('.dai').parents().length);//6
+    console.log($('.dai').parents('div').length) // 4
+    //只返回一个父元素
+    console.log($('.dai').parent().html())
+
+
+    console.log($('.chu').children().length);// 1  只返回直接子元素
+    console.log($('.chu').contents().length);// 3  只返回直接子元素 包含了俩文本节点
+
+    // 可以查找后代的
+    $('.li1').find('#item6').css('font-size', '20px')
+
+    // 下一个
+    console.log($('.li1').children().eq(3).next().html())
+    // 下面所有
+
+    console.log($('.li1').children().eq(3).nextAll().length)// 5
+    // 上一个
+    console.log($('.li1').children().eq(3).prev().html());
+    //上面所有
+    console.log($('.li1').children().eq(3).prevAll().length)//3
+
+    //相邻兄弟节点 不包括自身
+    console.log($('.li1').children().eq(3).siblings().length) // 8
+
+
+
+</script>
+</body>
+</html>

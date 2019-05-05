@@ -1,0 +1,20 @@
+// json键值对必须是双引号 而且不能有注释
+
+// json仅有的两个方法 parse和stringify  这俩个方法调用的时候注意要使用 try catch
+{
+  "data": {
+    "name": "Peter",
+    "phonenumber": 123456,
+    "address": "WuHan",
+    "career": {
+      "company": "google",
+      "title": "CEO"
+    },
+    "project": ["home page", "landing page", "checkout page"]
+  }
+}
+
+
+/
+
+

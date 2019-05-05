@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<img id="logo" src="../logo1.jpg" alt="jQuery logo" class="img-jquery" title="jQuery logo"  xximg="data" aaa="a" propb="b"/>
+
+<input class="checkbox" type="checkbox" id="check"
+       tabindex="1" style="width:50px; height: 50px;"
+       title="Check this!" description="just a checkbox" />
+
+<div>设置id生效吗</div>
+<script src="vendor/jquery-1.12.4.js"></script>
+<script>
+
+    // 原生js获取设置属性
+    var check = document.getElementById('check');
+    console.log(check.getAttribute('tabIndex'));
+    console.log(check.tabIndex);// 原生js 的方法和上面一个结果一致
+    console.log(typeof (check.getAttribute('tabIndex'))) // string
+    console.log(typeof (check.tabIndex)); //number  区别在于前者固定返回的是字符串类型 这个返回number类型 不固定  根据属性变化 如果是style这种属性就返回对象
+
+
+
+    // 对比修改attribute和property 修改同步问题
+
+    console.log(check.title === check.getAttribute('title'))// true;
+    check.title = 'new title';
+    console.log(check.title === check.getAttribute('title'))// true;
+    check.setAttribute('title', 'another new one');
+    console.log(check.title === check.getAttribute('title'))// true;
+
+        // attribute获取不到布尔值
+    console.log(check.getAttribute('checked'));//获取特性的方法获取不到checked
+    console.log(check.checked);//获取属性的方法  针对这种类型的用这种方法
+    // property可以设置为布尔值的特性
+    check.checked = true;
+
+    // 获取自定义的属性
+    console.log(check.getAttribute('description')) // 获取的到
+    console.log(check.description) // undefined
+
+    check.setAttribute('description', 'just so so')// 可以设置
+    check.description = 'hi' // 无法设置
+
+    // check.class  错误写法
+    console.log(check.className) //正确写法
+    console.log(check.getAttribute('class'))//正确写法
+
+
+    // jqurey 设置和获取属性
+
+    var $img = $('img'),
+        $check = $('#check');
+    console.warn($img.attr('id'))
+    console.warn($img.attr('class'))
+
+    console.warn($check.attr('checked')) // jquery的attr可以获取
+
+    // 支持同时设置多个属性
+    $img.attr({
+        title: 'jquery title',
+        alt: 'jquery alt'
+    })
+    // 可以设置自定义属性
+    $check.attr({
+        hah: 'van'
+    })
+
+
+    // 对已有的标签设置id生效
+    $('div').attr({
+        id: 'id'
+    })
+    // 同样生效
+    var create = $('<div>通过js创建的标签id生效吗</div>').attr({
+        id:'jsid'
+    })
+    create.appendTo('body')
+
+    // 甚至可以移除掉自定义属性
+    $img.removeAttr('xximg aaa')  // 支持同时移除多个  但是切记不用加逗号
+
+
+    // prop
+    console.info($check.prop('checked'))  //终于获取到checked了！
+    console.info($check.prop('class'))  // 一般的属性也能获取
+    console.info($img.prop('aaa'))  //但是获取不到自定义的属性
+
+    $img.removeProp('propb') //移除对自定义属性也不生效
+    // $img.removeProp('tabIndex') 生效 一次只能移除一个
+
+
+
+    // 原生js的attribute无法获取和设置属性值为布尔值的属性 例如 checked disabled
+    // jquery的attr可以获取！！！！！
+</script>
+</body>
+</html>

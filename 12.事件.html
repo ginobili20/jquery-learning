@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="example" onclick="console.log('Click');console.log('Click2');">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis praesentium, sapiente? Earum, molestiae rem. Enim, perspiciatis quisquam! A consequatur culpa error et, natus nobis placeat qui rem, suscipit tempora tenetur.
+</p>
+<div id="p1">
+    <div id="p1-1">
+        <div id="p1-1-1">
+            <div id="p1-1-1-1">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto beatae delectus enim ipsum iusto laborum, libero minus perspiciatis quae quidem rem sed soluta velit veniam voluptatem voluptates voluptatibus. Repudiandae.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<h2>title</h2>
+<div class="item">
+    <p>Lorem ipsum dolor sit amet.</p>
+</div>
+<ul>
+    <li class="item1">新闻标题-1</li>
+    <li class="item2">新闻标题-2</li>
+    <li class="item3">新闻标题-3</li>
+    <li class="item4">新闻标题-4</li>
+    <li class="item5">新闻标题-5</li>
+    <li class="item6">新闻标题-6</li>
+    <li class="item7">新闻标题-7</li>
+    <li class="item8">新闻标题-8</li>
+    <li class="item9">新闻标题-9</li>
+</ul>
+
+<br>
+
+<div id="off">移除事件</div>
+<br>
+<div id="trigger">
+    <button type="button" value="trigger">触发事件</button>
+    <ol>
+        <li class="item1">新闻标题-1</li>
+        <li class="item2">新闻标题-2</li>
+        <li class="item3">新闻标题-3</li>
+        <li class="item4">新闻标题-4</li>
+        <li class="item5">新闻标题-5</li>
+        <li class="item6">新闻标题-6</li>
+        <li class="item7">新闻标题-7</li>
+        <li class="item8">新闻标题-8</li>
+        <li class="item9">新闻标题-9</li>
+    </ol>
+
+</div>
+
+
+<br>
+
+<div class="outer" id="outer1">
+    Outer 1
+    <div class="inner" id="inner1">Inner 1</div>
+</div>
+<div class="outer" id="outer2">
+    Outer 2
+    <div class="inner" id="inner2">Inner 2</div>
+</div>
+
+
+<div id="diy">
+    自定义事件
+</div>
+
+<script src="vendor/jquery-1.12.4.js"></script>
+<script>
+// 原生js
+    // dom 0级事件
+    document.getElementById('example').onmouseover = function () {
+        console.log('mouseover')
+    }
+   // DOM1级的目标主要是映射文档的结构  没有增加事件的功能
+    // dom 2级事件
+    document.getElementById('example').addEventListener('mouseout', function () {
+        console.log('mouseout');
+    })
+
+// jquery
+    $('ul').on('click', function (e) {
+        alert($(e.target).html())
+    })
+
+    // 一次性事件  同一个p只触发一次 不同的p分别会触发一次
+    $('p').one('click', function () {
+        console.log('p clicked once!');
+    })
+
+
+    // 移除事件
+    $('#off').on({
+        click: function () {
+            console.log('click')
+        },
+        mouseover: function () {
+            console.log('mouseover');
+        },
+        mouseout: function () {
+            console.log('mouseout');
+        },
+        dblclick: function () {
+            console.log('dblclick')
+        }
+    });
+    // 支持移除一个 多个或者全部事件
+    $('#off').off('mouseover');
+    $('#off').off();
+
+
+    // 触发
+    $('#trigger ol li').on('click', function () {
+        console.log('click')
+    })
+    
+    $('#trigger button').on('click', function () {
+        //$('#trigger ol li').trigger('click');   全部li都触发
+        $('#trigger ol li').triggerHandler('click'); //只触发第一个li
+    })
+
+    // triggerHandle和trigger的区别
+//    1. 不会触发浏览器默认事件  2. 不会触发事件冒泡 3.只会触发一个元素 4.返回的是事件处理函数的返回值而不是jquery对象
+
+
+    // hover事件
+    function hover(e) {
+        e.stopPropagation();
+        console.log(e.type + ' on ' + e.target.id)
+    }
+
+    $('#outer1').on('mouseover mouseout', hover);
+  //  hover = mouseenter + mouseleave
+    $('#outer2').hover(hover, hover);
+
+
+//不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件。对应mouseout
+
+//只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。对应mouseleave
+
+    // 自定义事件
+    $('#diy').on('diyEvent', function () {
+        $(this).css('background-color', 'red');
+    });
+
+    $('#diy').click(function () {
+        $(this).trigger('diyEvent')
+    })
+
+
+
+</script>
+</body>
+</html>

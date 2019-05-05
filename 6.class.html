@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    .box {
+    width: 100px;
+    height: 100px;
+    }
+
+    .red {
+    background-color: red;
+    }
+
+    .b10 {
+    border: 10px solid #000;
+    }
+
+    .m10 {
+    margin: 10px;
+    }
+
+    .p10 {
+    padding: 10px;
+    }
+
+    .hide {
+    display: none;
+    }
+    </style>
+</head>
+<body>
+
+<div class="box" id="demo">div</div>
+<ul>
+    <li>item</li>
+    <li>item</li>
+    <li>item</li>
+    <li>item</li>
+    <li>item</li>
+    <li>item</li>
+    <li>item</li>
+</ul>
+
+<script src="vendor/jquery-1.12.4.js"></script>
+<script>
+    var demo = $('#demo');
+
+    // 增加class
+    demo.addClass('red')
+
+    // 去掉class
+    demo.addClass('b10').removeClass('b10'); //无事发生
+
+    // 判断是否有class
+    console.log(demo.hasClass('red')); //true
+
+    // 切换class
+    demo.click(function () {
+        $(this).toggleClass('red')
+    })
+
+</script>
+</body>
+</html>
