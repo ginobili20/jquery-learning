@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">点击</button>
+<p id="store"></p>
+
+<script src="vendor/jquery-3.1.0.min.js"></script>
+<script>
+    var btn = document.querySelector('#btn')
+    var store = document.querySelector('#store');
+    var temp
+    btn.click = getScript
+    function getScript() {
+        var src = 'xxx&callback=loadData';
+        temp = document.createElement('script');
+        temp.src = src
+        document.body.appendChild(temp)
+    }
+
+    function loadData(data) {
+        store.innerHTML = JSON.stringify(data, null, 2)
+        document.body.removeChild(temp)
+    }
+
+
+    $.ajax({
+        type: 'GET',
+        url: 'xxx',
+        async: false,
+        dataType: 'jsonp',
+        jsonp: 'callback',
+        jsonpCallback: 'handle', // 处理回调的函数
+        success: function (res) {
+            console.log(res.data)
+        }
+    })
+
+
+
+    // 原生js实现一个ajax
+    var ajax = {
+        get: function (url, fn) {
+            var xhr = new XMLHttpRequest() || new ActiveXObject()
+            xhr.open('GET', url)
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200 || xhr.status === 304)  {
+                    fn.call(this, xhr.response)
+                }
+            }
+            xhr.send()
+        },
+        post: function (url, data, fn) {
+            var xhr = new XMLHttpRequest() || new ActiveXObject();
+            xhr.open('POST', url)
+            xhr.setRequestHeader('Content-Type',  'application/x-www-form-urlencoded')
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200 || xhr.status === 304) {
+                    fn.call(this, xhr.response)
+                }
+            }
+            xhr.send(data)
+        }
+    }
+
+    // 使用formData可以不设置请求头
+    var formData = new FormData()
+    formData.append('name', 'value')
+    xhr.send(formData)
+
+
+
+    // 原生js实现一个jsonp
+    function jsonp(obj) {
+        window.callback = function (res) { // 处理回调
+            obj.success(JSON.parse(res))
+        }
+        var script = document.createElement('script')
+        var src = obj.url + '&fn=callback'
+        for (var key in obj.data) {
+            src +=  '&' + key + '=' + obj.data[key]
+        }
+        script.src = src;
+        document.body.appendChild(script)
+    }
+
+
+    // 使用
+    jsonp({
+        url: 'xxx',
+        data:{
+            name:'hello'
+        },
+        success: function (res) {
+            console.log(res.age)
+        }
+    })
+
+
+</script>
+</body>
+</html>
